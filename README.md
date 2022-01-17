@@ -4,7 +4,7 @@ A pre-built docker image of Ubuntu 20.04, with basic daily tools shipped with us
 
 ## Exact things included
 
-- Ubuntu 20.04 Server, with curl / wget / vim, ... 
+- Minimized Ubuntu 20.04 Server, with curl / wget / vim, but excluded various boot/X11/systemd stuffs
 
 - Oh-My-ZSH & Misty Shell Environment (a modular zsh configurations) (https://github.com/NyaMisty/.misty_envconf_pub)
 
