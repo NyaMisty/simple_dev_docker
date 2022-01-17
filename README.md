@@ -4,10 +4,15 @@ A pre-built docker image of Ubuntu 20.04, with basic daily tools shipped with us
 
 ## Exact things included
 
-- Minimized Ubuntu 20.04 Server, with curl / wget / vim, but excluded various boot/X11/systemd stuffs
+- Minimized Ubuntu 20.04 Server, with curl / wget / vim, without boot/X11/systemd stuffs
 
 - Oh-My-ZSH & Misty Shell Environment (a modular zsh configurations) (https://github.com/NyaMisty/.misty_envconf_pub)
 
-- Basic build tools: make. gcc, build-essential
+- Basic build environment: GNU suite: gcc/make/flex/bison/autoconf & LLVM suite: clang/cmake/ninja
 
 - Python managed by Pyenv (2.7.13, 3.9.5)
+
+## Caveat
+
+- Vim: Only vim-tiny included
+- Python: No Tkinter support, No xmlsec

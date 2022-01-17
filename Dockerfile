@@ -2,37 +2,42 @@ FROM ubuntu:20.04
 
 ARG PYENV_ROOT "/opt/pyenv"
 
-RUN apt-get update
-RUN export DEBIAN_FRONTEND=noninteractive && \
-    apt-get install -y \
+RUN apt-get update && \
+    export DEBIAN_FRONTEND=noninteractive && \
+    apt-get install --no-install-recommends -y \
         # base packages \
-        binutils busybox-initramfs ca-certificates cpio perl locales man gpg less lsb-release openssl tcl tcl-dev \
-        ;
-
-RUN export DEBIAN_FRONTEND=noninteractive && \
-    apt-get install -y \
-        # build dependencies \
-        make autoconf automake cmake gcc clang build-essential dpkg-dev fakeroot \
-        # pyenv dependency \
-        make build-essential libssl-dev zlib1g-dev \
-        libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
-        libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev \
-        ;
-
-
-RUN export DEBIAN_FRONTEND=noninteractive && \
-    apt-get install -y \
+        ca-certificates cpio perl locales man less lsb-release openssl \
         # oh-my-zsh dependency \
         wget curl vim git zsh gawk \
         # remote access tools \
-        rsync mosh openssh-client openssh-server \
+        rsync mosh openssh-client \
         # user tool packages \
-        screen tmux unzip p7zip-full nmap socat \
-        ;
+        screen tmux zip unzip p7zip-full p7zip-rar nmap socat proxychains4 \
+        && apt-get clean && rm -rf /var/lib/apt/lists/*;
 
-RUN git clone https://github.com/pyenv/pyenv.git /opt/pyenv && cd /opt/pyenv && src/configure && make -C src
+RUN apt-get update && \
+    export DEBIAN_FRONTEND=noninteractive && \
+    apt-get install --no-install-recommends -y \
+        # base build depends \
+        build-essential \
+        # suggested packages \
+        libtool gettext flex bison gdb pkg-config \
+        # other build tools \
+        make autoconf automake cmake ninja-build gcc g++ clang fakeroot \
+        && apt-get clean && rm -rf /var/lib/apt/lists/*;
+
+RUN apt-get update && \
+    export DEBIAN_FRONTEND=noninteractive && \
+    apt-get install --no-install-recommends -y \
+        # pyenv dependency \
+        make build-essential libssl-dev zlib1g-dev \
+        libbz2-dev libreadline-dev libsqlite3-dev wget curl \
+        libncursesw5-dev xz-utils libxml2-dev libffi-dev liblzma-dev \
+        && apt-get clean && rm -rf /var/lib/apt/lists/*;
 
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+RUN git clone https://github.com/pyenv/pyenv.git /opt/pyenv && cd /opt/pyenv && src/configure && make -C src
 
 RUN export PYENV_ROOT="${PYENV_ROOT:-/opt/pyenv}" && export PATH="$PYENV_ROOT/bin:$PATH" && \
     eval "$(pyenv init --path)" && eval "$(pyenv init -)" && \
