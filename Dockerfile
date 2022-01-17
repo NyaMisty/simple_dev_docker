@@ -6,7 +6,9 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get install -y \
         # base packages \
-        ubuntu-server build-essential locales man \
+        binutils busybox-initramfs ca-certificates cpio perl locales man gpg less lsb-release openssl tcl tcl-dev vim gawk \
+        # build dependencies \
+        make autoconf automake cmake gcc clang build-essential dpkg-dev fakeroot \
         # oh-my-zsh dependency \
         wget curl vim git zsh \
         # pyenv dependency \
@@ -14,7 +16,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
         libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
         libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev \
         # user packages \
-        openssh-client screen tmux unzip p7zip-full
+        openssh-client screen tmux unzip p7zip-full nmap socat 
 
 RUN git clone https://github.com/pyenv/pyenv.git /opt/pyenv && cd /opt/pyenv && src/configure && make -C src
 
