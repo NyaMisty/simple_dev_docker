@@ -20,7 +20,7 @@ RUN git clone https://github.com/pyenv/pyenv.git /opt/pyenv && cd /opt/pyenv && 
 
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-RUN export PYENV_ROOT="${PYENV_ROOT:-/opt/pyenv}" && export PATH="$PYENV_ROOT/bin:$PATH" && 
+RUN export PYENV_ROOT="${PYENV_ROOT:-/opt/pyenv}" && export PATH="$PYENV_ROOT/bin:$PATH" && \
     eval "$(pyenv init --path)" && eval "$(pyenv init -)" && \
     pyenv install 2.7.13 && pyenv install 3.9.5 && pyenv global 2.7.13 3.9.5 system
 
