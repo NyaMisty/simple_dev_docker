@@ -19,16 +19,23 @@ RUN apt-get update && \
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get install --no-install-recommends -y \
         # base build depends \
-        build-essential \
-        # suggested packages \
-        libtool gettext flex bison gdb pkg-config \
-        # other build tools \
-        make autoconf automake cmake ninja-build gcc g++ clang fakeroot \
+        build-essential gcc g++ \
         && apt-get clean && rm -rf /var/lib/apt/lists/*;
 
 RUN apt-get update && \
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get install --no-install-recommends -y \
+        # suggested packages \
+        libtool gettext flex bison gdb pkg-config \
+        # other build tools \
+        make autoconf automake fakeroot \
+        && apt-get clean && rm -rf /var/lib/apt/lists/*;
+
+RUN apt-get update && \
+    export DEBIAN_FRONTEND=noninteractive && \
+    apt-get install --no-install-recommends -y \
+        # LLVM world \
+        cmake ninja-build clang \
         # pyenv dependency \
         make build-essential libssl-dev zlib1g-dev \
         libbz2-dev libreadline-dev libsqlite3-dev wget curl \
