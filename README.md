@@ -14,5 +14,7 @@ A pre-built docker image of Ubuntu 20.04, with basic daily tools shipped with us
 
 ## Caveat
 
-- Vim: Only vim-tiny included
-- Python: No Tkinter support, No xmlsec
+- Build: Not including gcc-multilib
+
+- Python: No Tkinter support, No xmlsec support
+
