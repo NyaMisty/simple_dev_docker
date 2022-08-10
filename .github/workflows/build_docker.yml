@@ -8,6 +8,9 @@ on:
 
 jobs:
   docker:
+    strategy:
+      matrix:
+        UBUNTU_VERSION: [20.04, 22.04, 18.04]
     runs-on: ubuntu-latest
     steps:
       -
@@ -31,7 +34,10 @@ jobs:
         with:
           context: .
           push: true
-          tags: nyamisty/dev:latest
+          tags: |
+            nyamisty/dev:latest
+            nyamisty/dev:${{ matrix.UBUNTU_VERSION }}
+          build-args: UBUNTU_VERSION=${{ matrix.UBUNTU_VERSION }}
       #-
       #  name: Update repo description
       #  uses: peter-evans/dockerhub-description@v2

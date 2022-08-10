@@ -1,3 +1,5 @@
 export ZSH="/root/.oh-my-zsh"
 export ZSH_THEME='ys'
 export PROXY_STR="$HTTP_PROXY"
+
+export PYENV_PY3_VERSION=3.9.5
