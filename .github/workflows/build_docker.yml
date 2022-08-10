@@ -35,7 +35,7 @@ jobs:
           context: .
           push: true
           tags: |
-            nyamisty/dev:latest
+            ${{ matrix.UBUNTU_VERSION == '20.04' && 'nyamisty/dev:latest' || '' }}
             nyamisty/dev:${{ matrix.UBUNTU_VERSION }}
           build-args: UBUNTU_VERSION=${{ matrix.UBUNTU_VERSION }}
       #-
